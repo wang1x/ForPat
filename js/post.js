@@ -32,8 +32,8 @@ var $comment = $('<p>'+ one.text + '</p>');
 
 function makeReplyForm(groupID){
 var reply ='<div class="comment-meta" id ="reply'+groupID+'" >\
-               <button type="button" class="btn btn-info replyform">Reply</button> \
-             <div class="" id="replyCommentT">\
+               <button type="button" class="btn btn-info replyform" onClick="displayForm(this)">Reply</button> \
+             <div class="" id="replyCommentT" style="display:none;">\
                 <form>\
                   <div class="form-group">\
                     <textarea name="comment" class="form-control" rows="3"></textarea>\
@@ -43,7 +43,6 @@ var reply ='<div class="comment-meta" id ="reply'+groupID+'" >\
 	      </div>\
               </div>';
 var   $reply =$(reply);
-	$reply.find("div").css("visibility", "hidden");
 	return $reply;
 
 }
@@ -77,8 +76,12 @@ function makeChildren(group1,id){
 	});
 	$("#post"+id).append(makeReplyForm(id));
 }
+function displayForm(element){
+	$(element).next().css("display","block");
 
-$(document).ready(function(){
+}
+
+function makeAllPost(){
 //get all post data
     $.ajax
     ({
@@ -98,25 +101,20 @@ $(document).ready(function(){
 	}
 	}
     });
-/*
-
-        result.data.posts.forEach(function(post){
-var x  =1;});
-*/
+}
+$(document).ready(function(){
+     makeAllPost();
 
      $("#newPost").click(function(){
-	var postContent = $(this).parent().find("textarea").val();
+      var text = $(this).parent().find("textarea").val();
     $.ajax
     ({
         url: '/insertPosts',
-        data: {},
-        type: 'GET',
+        data: {"text":text},
+        type: 'POST',
 	success: function(result){
 	if(result.success){
-	var data = sortData(result.data);
-	result.posts.forEach(function(post){
-			makeNewPost(post);
-			});
+	   
 	}
 	}
        
@@ -124,5 +122,7 @@ var x  =1;});
     });
         
     });	
+
+//
 });
 
