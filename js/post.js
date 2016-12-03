@@ -14,7 +14,7 @@ $('[data-toggle="collapse"]').on('click', function() {
 
 });
 function makeNewPost(one){
-var $media = $('<div class="media" data-depth="'+ one.deep +'"></div>');
+var $media = $('<div class="media" id="post'+one.id +'" data-depth="'+ one.deep +'"></div>');
 var heading=' \
         <div class="media-heading" data-group="'+one.groupID + '">';
         +  '<button class="btn btn-default btn-xs">'
@@ -38,22 +38,27 @@ var reply ='<div class="comment-meta">\
 	      </div>\
               </div>';
 var $reply = $(reply);
-
-	//$("toAdd").before( $media.append($heading,$comment,$reply) );
+        var marginLeft=((one.deep -1) * 30) + "px"
+        $media.css("margin-left",marginLeft);
 	return ($media.append($heading,$comment,$reply))[0];
 
 }
 function sortData(data){
 	//insert into post(userID, name, text, groupID, sibilingRank,deep) values(2,"yong2","test test test2",1,2,2);
 	var groups = {};
-	var i=0;
-/*
 	data.posts.forEach(function(post){
-			var groups[post.id] = data.replies.filter(function(reply){
-					    return reply.groupID ==post.id;
+			//var groups[post.id] =
+			  var post1 = post;
+                           data.reply.forEach(function(one){
+					    if(one.groupID ==post1.id){
+							if(!groups[post1.id]){
+								groups[post1.id]={};
+							}
+							groups[post1.id][one.sibilingRank]=one;
+						}
+			
 					});	  
 			});
-*/
 	return groups;
 }
 
@@ -67,7 +72,7 @@ $(document).ready(function(){
         type: 'GET',
 	success: function(result){
 	if(result.success){
-	//var data = sortData(result.data);
+	var groups = sortData(result.data);
         result.data.posts.forEach(function(post){
 			var html = makeNewPost(post);
 		        $("#posts").append(html);
