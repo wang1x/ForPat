@@ -30,7 +30,7 @@ var $comment = $('<p>'+ one.text + '</p>');
 
 }
 
-function makeReplyForm(groupID){
+function makeReplyForm(groupID, sibilingRank=1){
 var reply ='<div class="comment-meta" id ="reply'+groupID+'" >\
                <button type="button" class="btn btn-info replyform" onClick="displayForm(this)">Reply</button> \
              <div class="" id="replyCommentT" style="display:none;">\
@@ -38,7 +38,7 @@ var reply ='<div class="comment-meta" id ="reply'+groupID+'" >\
                   <div class="form-group">\
                     <textarea name="comment" class="form-control" rows="3"></textarea>\
                   </div>\
-                  <button type="submit" class="btn btn-default">Submit</button>\
+                  <button type="submit" class="btn btn-default" id="rank'+ sibilingRank + '">Submit</button>\
                 </form>\
 	      </div>\
               </div>';
@@ -66,14 +66,15 @@ function sortData(data){
 	return groups;
 }
 function makeChildren(group1,id){
-	if(!group1) {return;}
-	var keys = Object.keys(group1);
-	var group = group1;
-	keys.forEach(function(key){ 
-	      var html = makeNewPost(group[key]);
-	      var groupID = group[key].groupID;
-	      $("#post"+groupID).append(html);
-	});
+	if(group1){
+		var keys = Object.keys(group1);
+		var group = group1;
+		keys.forEach(function(key){ 
+				var html = makeNewPost(group[key]);
+				var groupID = group[key].groupID;
+				$("#post"+groupID).append(html);
+				});
+	}
 	$("#post"+id).append(makeReplyForm(id));
 }
 function displayForm(element){
@@ -104,25 +105,30 @@ function makeAllPost(){
 }
 $(document).ready(function(){
      makeAllPost();
-
+/*
      $("#newPost").click(function(){
       var text = $(this).parent().find("textarea").val();
+      if(
+      var data ={};
+      data.text = text;
+      if(!text.trim()) { 
+          return; 
+     }
     $.ajax
     ({
-        url: '/insertPosts',
-        data: {"text":text},
-        type: 'POST',
-	success: function(result){
-	if(result.success){
-	   
-	}
-	}
-       
+url: '/postText',
+data:data,
+type: 'POST',
+success: function(result){
+if(result.success){
+    $("#home a").click();
+}
+}
 
-    });
-        
+
+});
     });	
-
+*/
 //
 });
 
