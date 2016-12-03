@@ -24,25 +24,30 @@ var heading=' \
 var $heading = $(heading);
 var $body = $('<div class="media-body"> </div>');
 var $comment = $('<p>'+ one.text + '</p>');
-var reply ='<div class="comment-meta">\
-              <span><a href="#">delete</a></span>\
-              <span><a href="#">reply</a></span>\
-             <div class="collapsexxx" id="replyCommentT">\
+        var marginLeft=((one.deep -1) * 30) + "px"
+        $media.css("margin-left",marginLeft);
+	return ($media.append($heading,$comment))[0];
+
+}
+
+function makeReplyForm(groupID){
+var reply ='<div class="comment-meta" id ="reply'+groupID+'" >\
+               <button type="button" class="btn btn-info replyform">Reply</button> \
+             <div class="" id="replyCommentT">\
                 <form>\
                   <div class="form-group">\
-                    <label for="comment">Your Comment</label>\
                     <textarea name="comment" class="form-control" rows="3"></textarea>\
                   </div>\
                   <button type="submit" class="btn btn-default">Submit</button>\
                 </form>\
 	      </div>\
               </div>';
-var $reply = $(reply);
-        var marginLeft=((one.deep -1) * 30) + "px"
-        $media.css("margin-left",marginLeft);
-	return ($media.append($heading,$comment,$reply))[0];
+var   $reply =$(reply);
+	$reply.find("div").css("visibility", "hidden");
+	return $reply;
 
 }
+
 function sortData(data){
 	//insert into post(userID, name, text, groupID, sibilingRank,deep) values(2,"yong2","test test test2",1,2,2);
 	var groups = {};
@@ -61,7 +66,17 @@ function sortData(data){
 			});
 	return groups;
 }
-
+function makeChildren(group1,id){
+	if(!group1) {return;}
+	var keys = Object.keys(group1);
+	var group = group1;
+	keys.forEach(function(key){ 
+	      var html = makeNewPost(group[key]);
+	      var groupID = group[key].groupID;
+	      $("#post"+groupID).append(html);
+	});
+	$("#post"+id).append(makeReplyForm(id));
+}
 
 $(document).ready(function(){
 //get all post data
@@ -76,7 +91,9 @@ $(document).ready(function(){
         result.data.posts.forEach(function(post){
 			var html = makeNewPost(post);
 		        $("#posts").append(html);
-var x  =1;});
+			makeChildren(groups[post.id],post.id);
+       });
+	
 
 	}
 	}
@@ -102,6 +119,7 @@ var x  =1;});
 			});
 	}
 	}
+       
 
     });
         
