@@ -21,12 +21,11 @@ else {
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Tribute Patricia Postman</title>
 
-    <link href="http://fonts.googleapis.com/css?family=Oswald:700" rel="stylesheet" type="text/css"/>
+    <!-- <link href="http://fonts.googleapis.com/css?family=Oswald:700" rel="stylesheet" type="text/css"/> -->
 	<!-- <link href="stylecss.css" rel="stylesheet"/> -->
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src = "populateProduct.js"></script>
-    <script src = "js/all.js"></script>
 
 	<!-- <script src = "js/jquery.min.js"></script>  -->
 
@@ -41,7 +40,7 @@ else {
 
 	    <script>
         $(document).ready(function(){
-             populateContent(".active");
+             $(".active>a").click();
          }
         );
     </script>
@@ -52,7 +51,7 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  //margin-bottom: 60px;
   background:#FFFFCC;
 }
 footer {
@@ -69,16 +68,7 @@ footer {
 </script>
     </head>
     <body>
-   <div class="container" style="-moz-border-radius: 20px;
-    -khtml-border-radius: 20px;
-    -webkit-border-radius: 20px;
-    border-radius: 20px;
-    overflow:hidden;
-    background:#F6E7B9;
-    -webkit-box-shadow:0 0 4em rgb(4,6,5);
-    -moz-box-shadow:0 0 3em rgb(6,7,8);
-    box-shadow:0 0 1em rgb(5,9,2);
-    border-left:20px solid skyblue;border-right:20px solid skyblue;">
+   <div class="container" >
    <header>
    <div class="row">
 	<div class="col-md-4 col-sm-12">
@@ -131,10 +121,11 @@ footer {
 	 </br></br></br>
 	  	  
 </div>  <!-- end of container -->
-
+<!--
 <footer>
                 <p>Copyright &copy; 2016 - <a href="#">Terms</a> &middot; <a href="#">Privacy</a></p>
 </footer>
+-->
 	   </br>
 	  
   </body>  
