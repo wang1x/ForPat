@@ -33,12 +33,12 @@ var $comment = $('<p>'+ one.text + '</p>');
 function makeReplyForm(groupID, sibilingRank=1){
 var reply ='<div class="comment-meta" id ="reply'+groupID+'" >\
                <button type="button" class="btn btn-info replyform" onClick="displayForm(this)">Reply</button> \
-             <div class="" id="replyCommentT" style="display:none;">\
-                <form>\
+             <div class="" id="replyCommentT" style="display:none; margin-top:10px">\
+                <form onSubmit="return false;">\
                   <div class="form-group">\
                     <textarea name="comment" class="form-control" rows="3"></textarea>\
                   </div>\
-                  <button type="submit" class="btn btn-default" id="rank'+ sibilingRank + '">Submit</button>\
+                  <button onClick="formSubmit(this);" class="btn btn-default newPost" id="rank'+ sibilingRank + '">Submit</button>\
                 </form>\
 	      </div>\
               </div>';
@@ -65,17 +65,21 @@ function sortData(data){
 			});
 	return groups;
 }
-function makeChildren(group1,id){
+function makeChildren(group1,groupID){
 	if(group1){
 		var keys = Object.keys(group1);
 		var group = group1;
+                var sibilingRank =0;
 		keys.forEach(function(key){ 
 				var html = makeNewPost(group[key]);
-				var groupID = group[key].groupID;
+				if(sibilingRank<group[key].sibilingRank){
+		                       sibilingRank = group[key].sibilingRank;			
+				}
+				groupID = group[key].groupID;
 				$("#post"+groupID).append(html);
 				});
 	}
-	$("#post"+id).append(makeReplyForm(id));
+	$("#post"+groupID).append(makeReplyForm(groupID,sibilingRank));
 }
 function displayForm(element){
 	$(element).next().css("display","block");
@@ -103,32 +107,39 @@ function makeAllPost(){
 	}
     });
 }
-$(document).ready(function(){
-     makeAllPost();
-/*
-     $("#newPost").click(function(){
-      var text = $(this).parent().find("textarea").val();
-      if(
-      var data ={};
-      data.text = text;
-      if(!text.trim()) { 
-          return; 
-     }
-    $.ajax
-    ({
+
+function formSubmit(element){
+	var text = $(element).parent().find("textarea").val();
+	if(!text.trim()) { 
+		return; 
+	}
+	var data ={};
+	data.text = text;
+	var rank = $(element).attr("id");
+	if(rank){
+		rank = parseInt(rank.substring(4));
+		data.sibilingRank = rank+1;
+		var groupID = $(element).closest(".media").attr("id");
+		groupID = parseInt(groupID.substring(4));
+		data.groupID = groupID;
+	}
+	$.ajax
+		({
 url: '/postText',
 data:data,
 type: 'POST',
 success: function(result){
 if(result.success){
-    $("#home a").click();
+$("#home a").click();
 }
 }
 
 
 });
-    });	
-*/
+}	
+$(document).ready(function(){
+     makeAllPost();
+
 //
 });
 
