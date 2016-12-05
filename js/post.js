@@ -16,10 +16,10 @@ $('[data-toggle="collapse"]').on('click', function() {
 function makeNewPost(one){
 var $media = $('<div class="media" id="post'+one.id +'" data-depth="'+ one.deep +'"></div>');
 var heading=' \
-        <div class="media-heading" data-group="'+one.groupID + '">';
+        <div class="media-heading" data-group="'+one.groupID + '">'
         +  '<button class="btn btn-default btn-xs">'
         +   '<span class="glyphicon glyphicon-minus"></span></button> '
-        +  '<span class="label label-info">Anonymous</span>' + one.postTime 
+        +  '<span class="label label-info">Anonymous</span>&nbsp' + one.postTime 
          + '</div>';
 var $heading = $(heading);
 var $body = $('<div class="media-body"> </div>');

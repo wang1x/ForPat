@@ -1,0 +1,68 @@
+<style>
+.onepostgroup {
+	box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.25);
+	padding: 5px 10px 1px;
+	margin: 15px 0px;
+}
+.authInfo {
+	position: relative;
+	overflow: hidden;
+	white-space: normal; 
+	word-wrap: normal;
+}
+.lineup {
+    display: inline-block;
+    position:relative;
+    margin: 0 auto;
+    padding: 0px;
+    border: 0px;
+    float:left;
+}
+.authname {
+	border: none;
+	padding-left: 0;
+	font-weight: bold;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: no-wrap;
+	max-width: 235px;
+	vertical-align: text-bottom;
+}
+.posttime{
+}
+</style>
+<script>
+//# sourceURL=homejs.js
+function makePost(post){
+var auth = "<div class='authname lineup'>" + post.name + "</div>";
+var time = "<div class='posttime lineup'>&nbsp@" + post.postTime + "</div>";
+var postUI = '<div class="onepostgroup">' 
+   + ' <div class ="authInfo">' + auth + time + '</div>'
+   + '<div class="postContent">'+post.description + '</div>'
+   + '<div class="postReply"><div>'
+   +'</div>';
+  $("#mainpane").append(postUI);
+
+}
+$(document).ready(function() {
+    $.ajax
+    ({
+        url: '/getPosts',
+        data: {},
+        type: 'GET',
+        success: function(result){
+	if(result.success){
+	   result.data.forEach(function(post){
+		makePost(post);
+           });
+	}
+	}
+
+    });
+
+});
+
+</script>
+
+
+

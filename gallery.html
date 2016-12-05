@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+    <script src="js/photo-gallery.js"></script>
+  <style>
+.imgcontainer {
+    width: 150px;
+    height: 160px;
+}
+
+/* resize images */
+.imgcontainer img {
+    width: 100%;
+    max-height: 160px;
+}
+      ul {         
+          padding:0 0 0 0;
+          margin:0 0 0 0;
+      }
+      ul li {     
+          list-style:none;
+          margin-bottom:25px;           
+      }
+      ul li img {
+          cursor: pointer;
+      }
+      .modal-body {
+          padding:5px !important;
+      }
+      .modal-content {
+  height: 450px;
+  width: 400px;
+          border-radius:0;
+      }
+      .modal-dialog img {
+          width:300px;
+	  height:350px;		
+          text-align:center;
+          margin:0 auto;
+      }
+    .controls{          
+        width:50px;
+        display:block;
+        font-size:11px;
+        padding-top:8px;
+        font-weight:bold;          
+    }
+    .next {
+        float:right;
+        text-align:right;
+    }
+      /*override modal for demo only*/
+      .modal-dialog {
+          max-width:500px;
+          padding-top: 90px;
+      }
+      @media screen and (min-width: 768px){
+          .modal-dialog {
+              width:500px;
+              padding-top: 90px;
+          }          
+      }
+      @media screen and (max-width:1500px){
+          #ads {
+              display:none;
+          }
+      }
+
+
+
+  </style>
+    <div class="container">    
+        <ul class="row" id="gallaryImage">
+          </ul>             
+    </div> <!-- /container -->
+    
+     
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">         
+          <div class="modal-body">                
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    

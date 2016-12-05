@@ -1,5 +1,12 @@
 <?php
+//if (session_id() === "") {
+//   session_start();
+//}
+  define( "WEBSITE_NAME", "ForPat" );
+  define( "PATH_ROOT_BASEDIR", "/var/www/html");
+  define( "URL_ROOT_DIR", "/" );
 require_once("route.php");
+require_once("class.user.php");
 $routes = getRequest();
 
 if(!empty($routes[1])){
@@ -9,9 +16,6 @@ if(!empty($routes[1])){
 else {
 
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,11 +25,12 @@ else {
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Tribute Patricia Postman</title>
 
-    <!-- <link href="http://fonts.googleapis.com/css?family=Oswald:700" rel="stylesheet" type="text/css"/> -->
+     <link href="http://fonts.googleapis.com/css?family=Oswald:700" rel="stylesheet" type="text/css"/> 
 	<!-- <link href="stylecss.css" rel="stylesheet"/> -->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src = "populateProduct.js"></script>
+    <script src="js/constants.js"></script>
 
 	<!-- <script src = "js/jquery.min.js"></script>  -->
 
@@ -100,7 +105,7 @@ footer {
 				<li id="gallery"><a onclick="populateContent(this);">Gallery</a></li>
 				<li id="postad"><a onclick="populateContent(this);">Post</a></li>
 				<li id="weknowpat"><a onclick="populateContent(this);">We know Pat</a></li>
-				<li id="register"><a onclick="populateContent(this);">Register</a></li>
+				<li id="login"><a onclick="populateContent(this);">Login</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
 	    <form class="navbar-form">

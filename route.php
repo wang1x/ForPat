@@ -13,6 +13,9 @@ function getCurrentUri()
         $uri = substr($_SERVER['REQUEST_URI'], strlen($basepath)); 
         if (strstr($uri, '?')) $uri = substr($uri, 0, strpos($uri, '?'));
         $uri = '/' . trim($uri, '/');
+	if(!isset($_SESSION)){
+		//session_start();
+	}
         return $uri;
 }
 
@@ -42,21 +45,13 @@ function getRequest(){
 }
 
 function handleRequest($routes){
-        $request = $routes[1];
+	$request = $routes[1];
+        global $user;
 	header('Content-type: application/json');
 	$data=[];
 	if($request == "knowpat"){
 		$data["success"]=true;
 		$data['data']= getKnowPat();
-	}
-	else if($request =="postText"){
-		insertPosts($_POST);
-		$data["success"]=true;
-	}
-	else if($request == "postRegister"){
-		insertUser($_POST);	
-		$data["success"]=true;
-		$data['data']= $_POST;
 	}
 	else if($request=="getPosts"){
 		$result = getPosts();
@@ -71,6 +66,18 @@ function handleRequest($routes){
 		$data["success"]=true;
 		$data['data']= $result;
 	}
+	//print_r($user);
+	//if(isset($_SESSION) && isset($_SESSION["user_id"])){
+		if($request =="postText"){
+			insertPosts($_POST);
+			$data["success"]=true;
+		}
+		if($request == "postRegister"){
+			insertUser($_POST);	
+			$data["success"]=true;
+			$data['data']= $_POST;
+		}
+	//}
 	echo json_encode( $data);
 }
 

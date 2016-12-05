@@ -39,7 +39,15 @@
 			exit();
 		}
 		*/
-		return $user->isLogged;
+		if($user->isLogged){
+			session_start();
+			return true;
+			//$_SESSION["user_id"] = ;
+			//header('Location: index.php');
+		}
+                else {
+		   return false;
+		}
 	}
 /*
 global $user;
