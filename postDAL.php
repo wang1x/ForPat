@@ -54,7 +54,6 @@ function insertPosts($post){
 
 		$rank = $post["sibilingRank"];
 		$groupID = $post['groupID'];
-		$mydb->trace =1;
 		$sql = "insert into post(name,text, sibilingRank,groupID,deep) values('" . $post['name'] . "','" . $post['text'] 
                         ."',$rank,$groupID,2 ".");";
 		$mydb->query($sql);
