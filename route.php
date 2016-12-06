@@ -65,15 +65,15 @@ function handleRequest($routes){
 		$data["success"]=true;
 		$data['data']= $result;
 	}
+	if($request == "postRegister"){
+		insertUser($_POST);	
+		$data["success"]=true;
+		$data['data']= $_POST;
+	}
 	if(checkLoginByCookie()){
 		if($request =="postText"){
 			insertPosts($_POST);
 			$data["success"]=true;
-		}
-		if($request == "postRegister"){
-			insertUser($_POST);	
-			$data["success"]=true;
-			$data['data']= $_POST;
 		}
 	}
 	echo json_encode( $data);

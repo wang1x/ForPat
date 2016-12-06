@@ -1,16 +1,5 @@
 <?php
 include_once("class.mysql.php");
-function addQuotes($strs){
-	$out ="";
-	$i=0;
-	foreach($strs as $i=>$str){
-		if($i<count($strs)-1){
-			$out = $out."'" .$str . "',";
-		}
-	}
-	$out = count($strs)>1 ? ($out . "'" .$strs[count($strs)-1]."'") : ($out."'" .$strs[count($strs)-1]."'");
-        return $out;
-}
 function getPosts(){
         global $mydb;
         $posts = $mydb->get_results("select * from post where deep=1 order by postTime DESC");
@@ -63,18 +52,6 @@ function insertPosts($post){
 	//return getPostByID($id);
 }
 
-function insertUser($post){
-        global $mydb;
-       // $mydb->trace =1;
-	$arr = array($post['name'], $post['description'], md5($post['password']), $post['email'], $post['firsttime']);
-	
-	$sql = "insert into User(user_username,description,user_password,user_email,firsttime) values(" . addQuotes($arr) . ");";
-	//echo $sql;
-//$sql = 'insert into User(user_username,description,user_password,user_email,firsttime)
-  //     values("37","43","yy","xx","zz");';
-        
-        $results = $mydb->query($sql);
-}
 $test =array("name"=>"1123s5", "description"=>"37", "password"=>md5("43"),"email"=>"123testiasd", "firsttime"=>"qwasde");
 
 //insertUser($test);

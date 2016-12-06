@@ -37,6 +37,17 @@
 			//if ($_GET["trace"]==1) $this->trace=1;
 
 		}
+function addQuotes($strs){
+	$out ="";
+	$i=0;
+	foreach($strs as $i=>$str){
+		if($i<count($strs)-1){
+			$out = $out."'" .$str . "',";
+		}
+	}
+	$out = count($strs)>1 ? ($out . "'" .$strs[count($strs)-1]."'") : ($out."'" .$strs[count($strs)-1]."'");
+        return $out;
+}
 
 		// ==================================================================
 		//	Select a DB (if another one needs to be selected)

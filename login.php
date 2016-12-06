@@ -9,6 +9,20 @@
  *
 **/
 
+	function insertUser($post){
+		global $mydb;
+		// $mydb->trace =1;
+		$arr = array($post['name'], $post['description'], md5($post['password']), $post['email'], $post['firsttime']);
+		$sql = "insert into User(user_username,description,user_password,user_email,firsttime) values(" .$mydb->addQuotes($arr) . ");";
+		$mydb->query($sql);
+		$userID =   $mydb->insert_id;
+		$uid = uniqid();
+		$sql = "insert into cookie set cookie= '$uid', user_id= $userID";
+		$mydb->query($sql);
+		session_start();
+		setcookie("user", $uid, time()+60*60*24*365, $_SERVER['SERVER_NAME']);
+		return true;
+	}
 function checkLoginByCookie(){
 	global $mydb;
 	if(isset($_COOKIE) && isset($_COOKIE["user"])){
