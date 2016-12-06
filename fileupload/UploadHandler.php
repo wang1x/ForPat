@@ -676,6 +676,7 @@ class UploadHandler
     }
 
     protected function gd_create_scaled_image($file_name, $version, $options) {
+	//return false;
         if (!function_exists('imagecreatetruecolor')) {
             error_log('Function not found: imagecreatetruecolor');
             return false;

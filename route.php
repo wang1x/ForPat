@@ -46,7 +46,6 @@ function getRequest(){
 
 function handleRequest($routes){
 	$request = $routes[1];
-        global $user;
 	header('Content-type: application/json');
 	$data=[];
 	if($request == "knowpat"){
@@ -66,8 +65,7 @@ function handleRequest($routes){
 		$data["success"]=true;
 		$data['data']= $result;
 	}
-	//print_r($user);
-	//if(isset($_SESSION) && isset($_SESSION["user_id"])){
+	if(checkLoginByCookie()){
 		if($request =="postText"){
 			insertPosts($_POST);
 			$data["success"]=true;
@@ -77,7 +75,7 @@ function handleRequest($routes){
 			$data["success"]=true;
 			$data['data']= $_POST;
 		}
-	//}
+	}
 	echo json_encode( $data);
 }
 

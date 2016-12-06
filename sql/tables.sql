@@ -1,3 +1,5 @@
+create table cookie(cookie varchar(16) not null primary key, user_id varchar(20) not null, lasttime timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
+
 CREATE TABLE user (
   id int NOT NULL AUTO_INCREMENT,
   firstname varchar(100) DEFAULT NULL,
